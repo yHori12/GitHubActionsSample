@@ -56,7 +56,6 @@ jobs:
           project_id: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           service_account_key: ${{ secrets.FIREBASE_PROJECT_ID }}
           export_default_credentials: true
-      - run: gcloud info
 
       - name: Run Test on Firebase Test Lab
         run: gcloud firebase test android run --type instrumentation --app app-debug/app-debug.apk --device model=Pixel3,version=28,locale=ja,orientation=portrait
