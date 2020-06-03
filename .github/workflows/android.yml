@@ -60,3 +60,19 @@ jobs:
 
       - name: Run Test on Firebase Test Lab
         run: gcloud firebase test android run --type robo --app app-debug/app-debug.apk --device model=Pixel2,version=28,locale=ja,orientation=portrait 
+
+      - name: Notify Slack
+        run: |
+          data=$(cat <<EOF
+          {
+            "channel": "bot",
+            "username": "github-actions",
+            "text": "Success CI"
+          }
+          EOF
+          )
+          curl -X POST \
+              -H "Content-type: application/json; charset=utf-8" \
+              -H "Authorization: Bearer ${{ secrets.SLACK_BOT_TOKEN }}" \
+              -d "$data" \
+              https://slack.com/api/chat.postMessage
